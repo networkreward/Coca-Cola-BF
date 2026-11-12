@@ -1,0 +1,6 @@
+{
+  "name": "Coca-Cola Invest",
+  "description": "Plateforme mobile de franchise Coca-Cola avec portefeuille, gestion d'investissements et administration complète.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

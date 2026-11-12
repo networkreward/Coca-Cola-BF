@@ -1,0 +1,42 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "Utilisateur de la plateforme",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "balance": { "type": "number" },
+        "role": { "type": "string", "enum": ["USER", "ADMIN"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "phone", "balance", "role", "createdAt"]
+    },
+    "transaction": {
+      "title": "Transaction",
+      "description": "Transaction financière",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["DEPOSIT", "WITHDRAW", "GAIN"] },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["PENDING", "SUCCESS", "REJECTED", "CANCELLED"] },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "type", "amount", "status", "date"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "user" },
+      "description": "Documents des utilisateurs"
+    },
+    "/transactions/{transactionId}": {
+      "schema": { "$ref": "transaction" },
+      "description": "Documents des transactions"
+    }
+  }
+}

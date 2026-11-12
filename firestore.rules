@@ -1,0 +1,31 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isSignedIn() { return request.auth != null; }
+    
+    // Global safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // User collection - Strict rules
+    match /users/{userId} {
+      allow read: if request.auth != null && (request.auth.uid == userId || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN');
+      allow list: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN';
+      allow update: if request.auth != null && (request.auth.uid == userId || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN')
+                    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'phone', 'balance', 'password', 'isBlocked', 'totalDeposits', 'totalWithdrawals']);
+      allow create: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Transactions collection - Strict rules
+    match /transactions/{transactionId} {
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN');
+      allow list: if request.auth != null && (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN' || request.query.userId == request.auth.uid);
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update: if request.auth != null && (resource.data.userId == request.auth.uid || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'ADMIN');
+    }
+  }
+}

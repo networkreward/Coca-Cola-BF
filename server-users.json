@@ -1,0 +1,34 @@
+[
+  {
+    "id": "usr-super-admin",
+    "name": "Super Administrateur",
+    "phone": "+226 69 44 55 69",
+    "country": "BF",
+    "balance": 0,
+    "role": "ADMIN",
+    "referralCode": "COCA-SUPERADMIN",
+    "passwordHash": "95cae25b6fcbff3e0b0fb668ccd8032461c94add66e23367c1d1bea9f7e4946f0b0ab401e33c610fe2cf81093be960018fe35371fd6b5fd5d9bd58fd848f92f0",
+    "passwordSalt": "ea8c46648e4e35dc68e6d07181a41314",
+    "isBlocked": false,
+    "hasPurchasedFirstProduct": false,
+    "totalDeposits": 0,
+    "totalWithdrawals": 0,
+    "createdAt": "2026-09-29T10:25:53.018Z"
+  },
+  {
+    "id": "usr-mumj6ise-2scf",
+    "name": "Ousmane Traore",
+    "phone": "70112233",
+    "country": "BF",
+    "balance": 0,
+    "role": "USER",
+    "referralCode": "COCA-FK46",
+    "passwordHash": "154b3946fd14f469bf380426a166b26dc09b7ac0608e3f74e47db47d5696685970d9f2a44166b3b00a21203adccc571d0afe0cab7c0bfbacd897863e256bd966",
+    "passwordSalt": "bcba43d4b7dbdae0ce44bd6244950ea5",
+    "isBlocked": false,
+    "hasPurchasedFirstProduct": false,
+    "totalDeposits": 0,
+    "totalWithdrawals": 0,
+    "createdAt": "2026-09-29T10:25:53.054Z"
+  }
+]

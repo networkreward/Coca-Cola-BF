@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="cocaRed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1A24" />
+      <stop offset="100%" stop-color="#C40007" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- App Background -->
+  <rect width="512" height="512" rx="112" fill="url(#cocaRed)" />
+
+  <!-- Dynamic Wave Decoration -->
+  <path d="M0 340 C140 280, 240 400, 380 340 C440 315, 480 320, 512 340 L512 512 L0 512 Z" fill="#ffffff" fill-opacity="0.08" />
+  <path d="M0 380 C160 330, 260 440, 400 370 C460 340, 490 350, 512 370 L512 512 L0 512 Z" fill="#ffffff" fill-opacity="0.05" />
+
+  <!-- Bottle Silhouette & Capital C / Star badge -->
+  <g filter="url(#shadow)" fill="#ffffff">
+    <!-- Bottle silhouette -->
+    <!-- Cap -->
+    <rect x="238" y="105" width="36" height="18" rx="4" />
+    <!-- Neck -->
+    <path d="M243 123 L243 175 C243 190, 222 215, 218 235 L218 360 C218 375, 230 385, 245 385 L267 385 C282 385, 294 375, 294 360 L294 235 C290 215, 269 190, 269 175 L269 123 Z" />
+    <!-- Center Star / Investment Growth spark -->
+    <circle cx="256" cy="285" r="14" fill="#F40009" />
+    <path d="M256 260 L260 278 L278 282 L260 286 L256 304 L252 286 L234 282 L252 278 Z" fill="#ffffff" />
+  </g>
+
+  <!-- Wordmark "INVEST" in clean bold typography at bottom -->
+  <text x="256" y="445" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" letter-spacing="4" fill="#ffffff" text-anchor="middle">COCA-COLA INVEST</text>
+</svg>

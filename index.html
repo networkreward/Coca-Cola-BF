@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      // Completely mock WebSocket to prevent Vite from attempting HMR connections
+      window.WebSocket = function() {
+        console.debug('WebSocket connection blocked by AI Studio');
+        return {
+          send: () => {},
+          close: () => {},
+          readyState: 3, // CLOSED
+          addEventListener: () => {},
+        };
+      };
+
+      // Filter out benign Vite HMR websocket connection errors in preview environments
+      (function() {
+        const isBenign = (msg) => {
+          const str = (typeof msg === 'string' ? msg : (msg && msg.message) || (msg && msg.reason) || '').toLowerCase();
+          return str.includes('vite') || str.includes('websocket') || str.includes('hmr');
+        };
+
+        const origError = console.error;
+        console.error = function(...args) {
+          const msg = args.map(a => typeof a === 'string' ? a : (a && a.message) || '').join(' ');
+          if (isBenign(msg)) {
+            console.debug(...args);
+            return;
+          }
+          origError.apply(console, args);
+        };
+
+        const origWarn = console.warn;
+        console.warn = function(...args) {
+          const msg = args.map(a => typeof a === 'string' ? a : (a && a.message) || '').join(' ');
+          if (isBenign(msg)) {
+            console.debug(...args);
+            return;
+          }
+          origWarn.apply(console, args);
+        };
+
+        window.addEventListener('error', function(event) {
+          if (isBenign(event.message) || (event.filename && event.filename.includes('@vite/client'))) {
+            event.preventDefault?.();
+            event.stopImmediatePropagation?.();
+            return true;
+          }
+        }, true);
+
+        window.addEventListener('unhandledrejection', function(event) {
+          const reason = event.reason ? (event.reason.message || String(event.reason)) : '';
+          if (isBenign(reason)) {
+            event.preventDefault?.();
+            event.stopImmediatePropagation?.();
+          }
+        }, true);
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coca-Cola Invest</title>
+    <meta name="description" content="Plateforme mobile de franchise Coca-Cola avec portefeuille, gestion d'investissements et administration complète." />
+    <meta name="theme-color" content="#F40009" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Coca-Cola" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/pwa-192x192.png" />
+    <meta property="og:title" content="Coca-Cola Invest" />
+    <meta property="og:description" content="Plateforme mobile de franchise Coca-Cola avec portefeuille, gestion d'investissements et administration complète." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-['Plus_Jakarta_Sans',sans-serif]">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
